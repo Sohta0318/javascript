@@ -641,6 +641,60 @@ const convertTitleCase = function (title) {
 console.log(convertTitleCase('this is a nice title'));
 console.log(convertTitleCase('this is a LONG title but not too long'));
 console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+
+// challenge 4
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+// 1
+dogs.forEach(function (dog) {
+  dog.recFood = Math.floor(dog.weight ** 0.75 * 28);
+});
+// dogs.forEach(dog => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
+// 2
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogSarah);
+// 3
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooLittle);
+
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
+// 4
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little!`);
+//5
+console.log(dogs.some(dog => dog.curFood === dog.recFood));
+// 6
+console.log(
+  dogs.some(
+    dog =>
+      dog.curFood < dog.recFood * 0.1 + dog.recFood &&
+      dog.curFood > dog.recFood - dog.recFood * 0.1
+  )
+);
+// const checkEatingOkay = dog =>
+//   dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+
+// console.log(dogs.some(checkEatingOkay));
+// 7
+const okay = dogs.filter(
+  dog =>
+    dog.curFood < dog.recFood * 0.1 + dog.recFood &&
+    dog.curFood > dog.recFood - dog.recFood * 0.1
+);
+console.log(okay);
+// 8
+const copy = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+console.log(copy);
+
 // let num = 3;
 // const something = () => {
 //   num = 1 + 1;
@@ -651,3 +705,10 @@ console.log(convertTitleCase('and here is another title with an EXAMPLE'));
 
 // something();
 // anything();
+// const checkEatingOkay = dog =>
+//   dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+
+// console.log(dogs.some(checkEatingOkay));
+
+// // 7.
+// console.log(dogs.filter(checkEatingOkay));
